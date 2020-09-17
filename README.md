@@ -59,7 +59,7 @@ Addition
 
 The logistic relationship of Database tables are as follows:
 ========
-!(https://github.com/superzhaoyang/img_storage/blob/master/web_design/%E6%89%B9%E6%B3%A8%202020-06-28%20175820.png)
+![Image text](https://github.com/superzhaoyang/img_storage/blob/master/web_design/%E6%89%B9%E6%B3%A8%202020-06-28%20175820.png)
 
 Conclusion
 ========
