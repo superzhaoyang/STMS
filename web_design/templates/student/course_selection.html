@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/plugins/images/favicon.png">
+    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/colors/blue-dark.css" id="theme" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+
+
+
+</head>
+
+<body>
+
+<div class="preloader">
+    <div class="cssload-speeding-wheel"></div>
+</div>
+
+<div id="wrapper">
+
+    <nav class="navbar navbar-default navbar-static-top m-b-0">
+        <div class="navbar-header" style="background-color: #9c9c9c">
+            <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </a>
+            <div class="top-left-part">
+                <a class="logo" href="index.html">
+                    <b style = 'font-size: 20px;width:250px;'><i class="fa fa-users"></i> 教务管理系统（学生端）</b>
+
+                </a>
+            </div>
+            <ul class="nav navbar-top-links navbar-right pull-right">
+                <li>
+                    <a class="profile-pic" href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        <img src="{{avatar_path}}" alt="user-img" width="36" class="img-circle">
+                        <b class="hidden-xs">{{username}}</b>
+                    </a>
+                    <ul class="dropdown-menu " >
+                        <li class="mt5">
+                            <a href="/passwordChange">
+                                <i class="fa fa-key"></i> 修改密码</a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/login" id="loginOut">
+                                <i class="fa fa-sign-out"></i> 退出登录</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash">
+                {% for message in messages %}
+                    <div class="alert alert-success" style="text-align: center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <strong>{{ message }}</strong></div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse slimscrollsidebar" style="background-color:#607b8b " >
+            <ul class="nav" id="side-menu">
+               <li style="padding: 10px 0 0;">
+                    <a href="/" class="waves-effect">
+                        <i class="fa fa-home fa-fw fa-spin" aria-hidden="true"></i>
+                        <span class="hide-menu">首页</span></a>
+                </li>
+                <li style="padding: 10px 0 0;">
+                    <a href="/course_selection" class="waves-effect">
+                        <i class="fa fa-bookmark fa-fw fa-spin" aria-hidden="true"></i>
+                        <span class="hide-menu">学生选课中心</span></a>
+                </li>
+                <li>
+                    <a href="/seegrade" class="waves-effect">
+                        <i class="fa fa-graduation-cap fa-fw fa-spin" aria-hidden="true" ></i>
+                        <span class="hide-menu" >考试成绩</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">学生选课中心</h4> </div>
+
+                <ol class="breadcrumb">
+                    <li><a href="../index.html">首页</a></li>
+                    <li class="active">学生选课中心</li>
+                </ol>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="white-box">
+                    <label class="box-title">.</label>
+                    <p style="font-size: 20px; font-family: bold;" ><i class="fa fa-book" aria-hidden="true"></i> 课程类别：</p>
+                    <ul class=" navbar-top-links navbar-left ">
+                        <li>
+                            <button class="btn btn-success btn-xs"  style="margin-left: 50px; width: 120px;height: 40px;font-size: 20px; background-color: #8B795E;border-radius: 15px; color: white" >
+                                <a href="bixiu" style="color: white">必修课</a></button>
+                        </li>
+                    </ul>
+                    <ul class=" navbar-top-links navbar-left  ">
+                        <li>
+                            <button   style=" margin-left: 50px;  width: 120px;height: 40px;font-size: 20px; background-color: #8B795E;border-radius: 15px; color: white" >
+                                <a href="xianxuan" style="color:white; " >专业限选课</a></button>
+                        </li>
+                    </ul>
+                    <ul class=" navbar-top-links navbar-left ">
+                        <li>
+
+                            <button   style="margin-left: 50px; width: 120px;height: 40px;font-size: 20px; background-color: #8B795E;border-radius: 15px; color: white">
+                                <a href="tongxuan" style="color:white">通选课</a></button>
+                        </li>
+                    </ul>
+
+<br><br><br>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>开课学期</th>
+                                <th>课程编号</th>
+                                <th>课序号</th>
+                                <th>课程名称</th>
+                                <th>课程类别</th>
+                                 <th>任课老师</th>
+                                <th>开课班级</th>
+                                <th>学分</th>
+                                <th>总学时</th>
+                                <th>选课人数上限</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {%for data in datas2%}
+                                <tr>
+                                    {%for d in data%}
+                                    <td>{{d}}</td>
+                                    {% endfor %}
+                                     <td><a class="btn btn-success btn-xs" href="add/{{data[1]}},{{data[2]}},{{data[0]}}" onclick="xuanke()">选课</a></td>
+
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <br><br>
+
+                     <h4 class="page-title" style="margin-left: 30px"><i class="fa fa-calendar" aria-hidden="true"></i> 已选课程</h4><br>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>开课学期</th>
+                                <th>课程编号</th>
+                                <th>课序号</th>
+                                <th>课程名称</th>
+                                <th>课程类别</th>
+                                 <th>任课老师</th>
+                                <th>开课班级</th>
+                                <th>学分</th>
+                                <th>总学时</th>
+                                <th>选课人数上限</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {%for data in datas%}
+                                <tr>
+                                    {%for d in data%}
+                                    <td>{{d}}</td>
+                                    {% endfor %}
+                                     <td><a class="btn btn-success btn-xs" href="del/{{data[1]}}" onclick="tuike()">退课</a></td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <footer class="footer text-center" style="background-color: #000000;color: white">
+
+        <b style="position:absolute; margin-left:  -630px; margin-top:0px;font-size: 20px;"><i class="fa fa-link"></i>常用链接</b>
+        <a href="https://www.baidu.com" style=" position:absolute;margin-left: -500px; color: white;font-size:20px;">百度</a>
+        <a href="https://www.github.com" style="position:absolute; margin-left: -440px; color: white;font-size:20px;">Github</a>
+        <a href="https://www.csdn.net" style="position:absolute; margin-left: -360px; color: white;font-size:20px;">CSDN</a>
+        <BR>
+        <br>
+        <b style="position:absolute; margin-left:  -630px; margin-top:0px;font-size: 20px;"><i class="fa fa-link"></i>学校链接</b>
+        <a href="http://pass.sdu.edu.cn/cas/login?service=http://softms.sdu.edu.cn/" style=" position:absolute;margin-left: -500px; color: white;font-size:20px;">校内正版软件</a>
+        <a href="http://58.194.172.34/reader/redr_info.php" style="position:absolute; margin-left: -360px; color: white;font-size:20px;">图书检索系统</a>
+        <a href="https://www.wh.sdu.edu.cn/xxxl.htm" style="position:absolute; margin-left: -220px; color: white;font-size:20px;">校历</a>
+        <BR>
+        <label style="font-size: 23px">教务管理系统</label><br>
+        <a href="http://www.superzhaoyang.top" style="color: white">superzhaoyang.top©</a> 版权所有
+    </footer>
+
+</div>
+</div>
+<script src="/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+<script src="/static/js/jquery.slimscroll.js"></script>
+<script src="/static/js/waves.js"></script>
+<script src="/static/js/custom.min.js"></script>
+</body>
+<script>
+    $(document).ready(function () {
+        var time = new Date();
+        var day = ("0" + time.getDate()).slice(-2);
+        var month = ("0" + (time.getMonth() + 1)).slice(-2);
+        var today = time.getFullYear() + "-" + (month) + "-" + (day);
+        $('#date_info').val(today);
+    });
+    function tuike()
+  {
+    alert("退课成功!!")
+  }
+      function xuanke()
+  {
+      if(success) {
+          alert("选课成功!!")
+      }
+  }
+</script>
+</html>

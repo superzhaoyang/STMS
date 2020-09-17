@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
+    <title>学生选课和成绩管理系统</title>
+    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/colors/blue-dark.css" id="theme" rel="stylesheet">
+    <script type="text/javascript">
+
+        function display_alert() {
+            alert("修改成功！");
+
+        }
+
+        function show_studentInfo(sno, sname, mname, ssex, birth, classname) {
+            {
+
+            }
+            document.getElementById("sno1").value = sno.toString();
+            document.getElementById("sname1").value = sname.toString();
+            document.getElementById("birth1").value = birth.toString();
+
+            var obj = document.getElementById("AreaId");
+            for (i = 0; i < obj.length; i++) {//下拉框的长度就是它的选项数.
+                if (obj[i].value == mname.toString()) {
+                    obj[i].selected = true;
+                } else obj[i].selected = false;
+            }
+
+            var obj1 = document.getElementById("banji");
+            for (j = 0; j < obj1.length; j++) {//下拉框的长度就是它的选项数.
+                if (obj1[j].value == classname.toString()) {
+                    obj1[j].selected = true;
+                } else obj1[j].selected = false;
+            }
+
+            var obj1 = document.getElementById("ssex");
+            for (j = 0; j < obj1.length; j++) {//下拉框的长度就是它的选项数.
+                if (obj1[j].value == ssex.toString()) {
+                    obj1[j].selected = true;
+                } else obj1[j].selected = false;
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+
+<div class="preloader">
+    <div class="cssload-speeding-wheel"></div>
+</div>
+</div>
+
+
+<div class="modal fade" id="changeSource" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document" style="width: 900px">
+        <div class="modal-content">
+            <form method="post" action="/updateStudent" name="form1">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">修改</h4>
+                    <br><br>
+                </div>
+
+                <table cellspacing="10" cellpadding="10">
+
+                    <tr height="50px">
+
+                        <td>
+                            <label style="margin-left: 100px">学号：</label>
+                            <input type="text" id="sno1" name="sno" class="form-control-line" onfocus=this.blur()>
+                        </td>
+                        <td>
+                            <label style="margin-left: 100px">姓名:</label>
+                            <input type="text" id="sname1" name="sname" class=" form-control-line">
+                        </td>
+                    </tr>
+
+                    <p></p>
+
+                    <tr height="50px">
+                        <td>
+                            <label style="margin-left: 100px">专业:</label>
+                            <select name="AreaId" id="AreaId">
+                                {% for i in datas3 %}
+                                <option value={{ i[0] }}>{{ i[0] }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </td>
+                        <td height="50px">
+                            <label style="margin-left: 110px">性别:</label>
+                            <select name="ssex" id="ssex">
+                                <option value="女">女</option>
+                                <option value="男">男</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <p></p>
+
+                    <tr height="50px">
+                        <td>
+                            <label style="margin-left: 110px">出生日期:</label>
+                            <input type="text" id="birth1" name="birth" class=" form-control-line">
+                        </td>
+                        <td>
+                            <label style="margin-left: 110px">班级:</label>
+                            <select name="banji" id="banji">
+                                {% for i in datas2 %}
+                                <option value={{ i[0] }}>{{ i[0] }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <p></p>
+                </table>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+
+                    <input type="submit" name="button" class="btn btn-xs btn-green" value="提交"
+                           onclick="display_alert()"/>
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="addSource" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document" style="width: 900px">
+        <div class="modal-content">
+            <form method="post" action="/addstu" name="form2">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">增加</h4>
+                    <br><br>
+                </div>
+                <table>
+                    <tr height="50px">
+                        <td>
+                            <label style="margin-left: 100px">学号：</label>
+                            <input type="text" id="sno2" name="sno" class="form-control-line">
+
+                        </td>
+                        <td>
+                            <label style="margin-left: 100px">姓名:</label>
+                            <input type="text" id="sname2" name="sname" class=" form-control-line">
+
+                        </td>
+                    </tr>
+                    <tr height="50px">
+                        <td>
+                            <label style="margin-left: 100px">专业:</label>
+                            <select id="mname2" name="mname">
+                                {% for i in datas3 %}
+                                <option value={{ i[0] }}>{{ i[0] }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </td>
+                        <td>
+                            <label style="margin-left: 110px">性别:</label>
+                            <select id="ssex2" name="ssex">
+                                <option value="女">女</option>
+                                <option value="男">男</option>
+                            </select>
+
+                        </td>
+                    </tr>
+
+                    <tr height="50px">
+                        <td>
+                            <label style="margin-left: 110px">出生日期:</label>
+                            <input type="text" id="birth2" name="birth" class=" form-control-line">
+                        </td>
+                        <td>
+                            <label style="margin-left: 110px">班级:</label>
+                            <select id="classname2" name="classname">
+                                {% for i in datas2 %}
+                                <option value={{ i[0] }}>{{ i[0] }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                    <input type="submit" name="button" class="btn btn-xs btn-green" value="提交"
+                           onclick="alert('添加成功！')"/>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="deleteSource" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                <button type="button" class="btn btn-xs btn-danger" onclick="del(this)">确 定</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="wrapper">
+
+    <nav class="navbar navbar-default navbar-static-top m-b-0">
+        <div class="navbar-header" style="background-color: #9c9c9c">
+            <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse"
+               data-target=".navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </a>
+            <div class="top-left-part">
+                <a class="logo" href="index.html">
+                    <b style='font-size: 20px;width:250px;'><i class="fa fa-users fa-fw"></i>教务管理系统（教务端）</b>
+                </a>
+            </div>
+            <ul class="nav navbar-top-links navbar-right pull-right">
+                <li>
+                    <a class="profile-pic" href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       data-hover="dropdown">
+                        <img src="{{avatar_path}}" alt="user-img" width="36" class="img-circle">
+                        <b class="hidden-xs">{{username}}</b>
+                    </a>
+                    <ul class="dropdown-menu ">
+                        <li class="mt5">
+                            <a href="/passwordChange">
+                                <i class="fa fa-key"></i> 修改密码</a>
+                        </li>
+                        <li>
+                            <a href="/login" id="loginOut">
+                                <i class="fa fa-sign-out"></i> 退出登录</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+
+    </nav>
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse slimscrollsidebar" style="background-color: #607b8b">
+            <ul class="nav" id="side-menu">
+                <li style="padding: 10px 0 0;">
+                    <a href="/" class="waves-effect">
+                        <i class="fa fa-home fa-spin fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">主页</span></a>
+                </li>
+                <li>
+                    <a href="/student" class="waves-effect">
+                        <i class="fa fa-user fa-spin fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">学生信息管理</span></a>
+                </li>
+                <li>
+                    <a href="/courseManage" class="waves-effect">
+                        <i class="fa fa-columns fa-spin fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">课程信息管理</span></a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <!--row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box" id="select">
+                        <form action="/select">
+                            <label style="margin-left: 60px;margin-top:-100px; font-size: small;">姓名</label>
+                            <input type="text" name="sname" value="{{ sname2 }}"
+                                   style="border-radius: 10px;border-color: black">
+
+                            <label style="margin-left: 60px;font-size: small">学号</label>
+                            <input type="text" name="sno" value="{{ sno2 }}"
+                                   style="border-radius: 10px;border-color: black">
+
+                            <label style="margin-left: 60px;font-size: small">班级</label>
+                            <select name="classname" style="width: 100px;border-radius: 10px;border-color: black">
+                                <option value="" {{selected}}></option>
+                                {% for i in datas2 %}
+                                {% if i[0] == classname2 %}
+                                {% set selected="selected" %}
+                                {% else %}
+                                {% set selected="" %}
+                                {% endif %}
+                                <option value={{ i[0] }} {{selected}}>{{ i[0] }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <label style="margin-left: 60px;font-size: small">专业</label>
+                            <select name="mname" style="border-radius: 10px;border-color: black">
+                                <option value="" {{selected}}></option>
+                                {% for i in datas3 %}
+                                {% if i[0] == mname2 %}
+                                {% set selected="selected" %}
+                                {% else %}
+                                {% set selected="" %}
+                                {% endif %}
+                                <option value={{ i[0] }} {{selected}}>{{ i[0] }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" class="btn btn-dropbox" style="margin-left: 20px;" value="查询">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">学生信息
+
+                        </h3>
+                        <div class="table-responsive">
+                            <table class="table" name="table">
+                                <thead>
+                                <tr>
+                                    <th>学号</th>
+                                    <th>姓名</th>
+                                    <th>专业</th>
+                                    <th>性别</th>
+                                    <th>出生日期</th>
+                                    <th>班级</th>
+                                    <th>修改|删除</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tbody>
+                                {%for item in datas%}
+                                <tr>
+                                    {%for a in item %}
+                                    <td>{{a}}</td>
+                                    {% endfor %}
+                                    <td>
+                                        <a data-toggle="modal" class="btn btn-github btn-xs" data-target="#changeSource"
+                                           onclick="show_studentInfo('{{item[0]}}','{{item[1]}}','{{item[2]}}','{{item[3]}}','{{item[4]}}','{{item[5]}}')">修改</a>
+                                        <a data-toggle="modal" class="btn btn-googleplus btn-xs"
+                                           href="delstu/{{item[0]}}">删除</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <button data-toggle="modal" class='btn btn-dropbox' data-target="#addSource"
+                                    style="margin-left: 930px;">增加学生记录
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <footer class="footer text-center" style="background-color: #000000;color: white">
+                <b style="position:absolute; margin-left:  -630px; margin-top:0px;font-size: 20px;"><i
+                        class="fa fa-link"></i>常用链接</b>
+                <a href="https://www.baidu.com"
+                   style=" position:absolute;margin-left: -500px; color: white;font-size:20px;">百度</a>
+                <a href="https://www.github.com"
+                   style="position:absolute; margin-left: -440px; color: white;font-size:20px;">Github</a>
+                <a href="https://www.csdn.net"
+                   style="position:absolute; margin-left: -360px; color: white;font-size:20px;">CSDN</a>
+                <BR>
+                <br>
+                <b style="position:absolute; margin-left:  -630px; margin-top:0px;font-size: 20px;"><i
+                        class="fa fa-link"></i>学校链接</b>
+                <a href="http://pass.sdu.edu.cn/cas/login?service=http://softms.sdu.edu.cn/"
+                   style=" position:absolute;margin-left: -500px; color: white;font-size:20px;">校内正版软件</a>
+                <a href="http://58.194.172.34/reader/redr_info.php"
+                   style="position:absolute; margin-left: -360px; color: white;font-size:20px;">图书检索系统</a>
+                <a href="https://www.wh.sdu.edu.cn/xxxl.htm"
+                   style="position:absolute; margin-left: -220px; color: white;font-size:20px;">校历</a>
+                <BR>
+                <label style="font-size: 23px">教务管理系统</label><br>
+                <a href="http://www.superzhaoyang.top" style="color: white">superzhaoyang.top©</a> 版权所有
+            </footer>
+        </div>
+
+    </div>
+</div>
+
+<script src="/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+<script src="/static/js/jquery.slimscroll.js"></script>
+<script src="/static/js/waves.js"></script>
+<script src="/static/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
+<script src="/static/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
+<script src="/static/plugins/bower_components/raphael/raphael-min.js"></script>
+<script src="/static/plugins/bower_components/morrisjs/morris.js"></script>
+<script src="/static/js/custom.min.js"></script>
+<script src="/static/js/dashboard1.js"></script>
+<script src="/static/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+</body>
+</html>

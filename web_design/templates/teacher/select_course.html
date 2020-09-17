@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/plugins/images/favicon.png">
+    <title>成绩管理</title>
+    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/colors/blue-dark.css" id="theme" rel="stylesheet">
+
+
+    <script>
+        function alterfun(sno, sname, mname, classname, grade) {
+            document.getElementById("snos").value = sno.toString();
+            document.getElementById("snames").value = sname.toString();
+            document.getElementById("mnames").value = mname.toString();
+            document.getElementById("classnames").value = classname.toString();
+            document.getElementById("grades").value = grade.toString();
+        }
+
+    </script>
+
+</head>
+
+<body class="">
+
+
+
+<div class="preloader" style="display: none;">
+    <div class="cssload-speeding-wheel"></div>
+</div>
+<div id="wrapper">
+
+
+    <nav class="navbar navbar-default navbar-static-top m-b-0">
+        <div class="navbar-header" style="background-color: #9c9c9c">
+            <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse"
+               data-target=".navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </a>
+            <div class="top-left-part">
+                <a class="logo" href="index.html">
+                    <b style='font-size: 20px;width:250px;'><i class="fa fa-users"></i>教务管理系统(教师端）</b>
+
+                </a>
+            </div>
+
+
+            <ul class="nav navbar-top-links navbar-right pull-right">
+                <li>
+                    <a class="profile-pic" href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       data-hover="dropdown">
+                        <img src="{{avatar_path}}" alt="user-img" width="36" class="img-circle">
+                        <b class="hidden-xs">{{username}}</b>
+                    </a>
+                    <ul class="dropdown-menu ">
+                        <li class="mt5">
+                            <a href="/passwordChange">
+                                <i class="fa fa-key"></i> 修改密码</a>
+                        </li>
+
+                        <li>
+                            <a href="/login" id="loginOut">
+                                <i class="fa fa-sign-out"></i> 退出登录</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+
+    </nav>
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse slimscrollsidebar" style="background-color:#607b8b ">
+
+            <ul class="nav" id="side-menu">
+                <li style="padding: 10px 0 0;">
+                    <a href="/" class="waves-effect">
+                        <i class="fa fa-home fa-fw fa-spin" aria-hidden="true"></i>
+                        <span class="hide-menu">首页</span></a>
+                </li>
+
+                <li class="">
+                    <a href="#" class="waves-effect">
+                        <i class="fa fa-bar-chart fa-fw fa-spin" aria-hidden="true"></i>
+                        <span class="hide-menu">授课信息</span></a>
+                    <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                        <li>
+                            <a href="/course_info">课程信息</a>
+                        </li>
+                        <li>
+                            <a href="/student_info">学生信息</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="waves-effect">
+                        <i class="fa fa-file-photo-o fa-fw fa-spin" aria-hidden="true"></i>
+                        <span class="hide-menu">成绩管理</span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="/writesc">成绩录入</a>
+                        </li>
+                        <li>
+                            <a href="/stu_grade_manage">成绩查看和修改</a>
+                        </li>
+                    </ul>
+
+                </li>
+
+
+            </ul>
+
+
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="changeSource" name="changeSource" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document" style="width: 40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">成绩修改</h4>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="page-wrapper" style="min-height: 725px;">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">成绩录入</h4></div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb">
+                        <li><a href="/">首页</a></li>
+                        <li><a href="#">成绩录入</a></li>
+                    </ol>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title" style="font-size: large;font-weight:bold">所教科目列表
+
+                        </h3>
+                        <div class="table-responsive">
+                            <table id='table1' name="table1" class="table ">
+                                <thead>
+                                <tr>
+                                    <td>课程号</td>
+                                    <td>课序号</td>
+                                    <td>课程名</td>
+
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {%for data in datas%}
+                                <tr>
+
+                                    {%for d in data%}
+                                    <td>{{d}}</td>
+                                    {% endfor %}
+
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <form action="/navi" method="POST">
+                            请选择修改的科目<select id='combobox' name="combobox" style="margin-left: 10px">
+                            {% for pro in datas %}
+                            <option value='{{pro[2]}}'>{{pro[2]}}</option>
+                            {% endfor %}
+                        </select>
+                            <button type="submit" id='button'
+                                    style="border-radius: 10px;background-color:lightblue; width :100px; font-size: 15px;color:white ">
+                                确定
+                            </button>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer text-center" style="background-color: #000000;color: white">
+
+            <b style="position:absolute; margin-left:  -630px; margin-top:0px;font-size: 20px;"><i
+                    class="fa fa-link"></i>常用链接</b>
+            <a href="https://www.baidu.com"
+               style=" position:absolute;margin-left: -500px; color: white;font-size:20px;">百度</a>
+            <a href="https://www.github.com"
+               style="position:absolute; margin-left: -440px; color: white;font-size:20px;">Github</a>
+            <a href="https://www.csdn.net" style="position:absolute; margin-left: -360px; color: white;font-size:20px;">CSDN</a>
+            <BR>
+            <br>
+            <b style="position:absolute; margin-left:  -630px; margin-top:0px;font-size: 20px;"><i
+                    class="fa fa-link"></i>学校链接</b>
+            <a href="http://pass.sdu.edu.cn/cas/login?service=http://softms.sdu.edu.cn/"
+               style=" position:absolute;margin-left: -500px; color: white;font-size:20px;">校内正版软件</a>
+            <a href="http://58.194.172.34/reader/redr_info.php"
+               style="position:absolute; margin-left: -360px; color: white;font-size:20px;">图书检索系统</a>
+            <a href="https://www.wh.sdu.edu.cn/xxxl.htm"
+               style="position:absolute; margin-left: -220px; color: white;font-size:20px;">校历</a>
+            <BR>
+            <label style="font-size: 23px">教务管理系统</label><br>
+            <a href="http://www.superzhaoyang.top" style="color: white">superzhaoyang.top©</a> 版权所有
+    </div>
+</div>
+
+<script src="/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
+<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+
+<script src="/static/js/jquery.slimscroll.js"></script>
+
+<script src="/static/js/waves.js"></script>
+
+<script src="/static/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
+<script src="/static/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
+
+<script src="/static/plugins/bower_components/raphael/raphael-min.js"></script>
+<script src="/static/plugins/bower_components/morrisjs/morris.js"></script>
+
+<script src="/static/js/custom.min.js"></script>
+<script src="/static/js/dashboard1.js"></script>
+<script src="/static/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+
+<script src="/static/js/xlsx.full.min.js"></script>
+<script src="/static/js/export.js"></script>
+
+
+</body>
+</html>

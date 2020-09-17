@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/animate1.css">
+    <link rel="stylesheet" href="/static/css/style1.css">
+    <script src="/static/js/modernizr-2.6.2.min.js"></script>
+    <script src="/static/js/respond.min.js"></script>
+</head>
+<body class="style-3" background="images\bg4.jpg"
+      style=" background-repeat:no-repeat ;
+background-size:100% 100%;
+background-attachment: fixed;">
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class="flash">
+    {% for message in messages %}
+    <div class="alert alert-success" style="text-align: center">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <strong>{{ message }}</strong></div>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<div class="container" style="margin-left: 200px;opacity: 0.7">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <ul class="menu">
+
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-push-8">
+            <form class="fh5co-form animate-box" action="login" method="post" data-animate-effect="fadeInCenter"
+                  style="position:absolute; margin-left: -400px;width:400px;">
+                <h2>登陆</h2>
+                <div class="form-group">
+                    <label for="username" class="sr-only">身份：</label>
+                    <select class="form-control" name="identity" id="identity">
+                        <option value="student">学生</option>
+                        <option value="teacher">教师</option>
+                        <option value="jiaowuyuan">教务员</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="username" class="sr-only">用户名：</label>
+                    <input class="form-control" name="username" type="text" id="username" required="required"
+                           >
+                </div>
+                <div class="form-group">
+                    <label for="password" class="sr-only">密码：</label>
+                    <input class="form-control" name="pwd" id="pwd" type="password" required="required"
+                          >
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="登陆" class="btn btn-dropbox fa-fw">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row"
+         style="position:absolute;margin-top: 600px; clear: both;align-items: center;margin-left: 489px;font-size: 25px;">
+        教务管理系统
+    </div>
+</div>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.placeholder.min.js"></script>
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>
+

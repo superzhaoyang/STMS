@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/plugins/images/favicon.png">
+    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link href="/static/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="/static/css/colors/blue-dark.css" id="theme" rel="stylesheet">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/excel.js"></script>
+    <script src="/static/js/xlsx.core.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+</head>
+
+<body>
+
+<div class="preloader">
+    <div class="cssload-speeding-wheel"></div>
+</div>
+
+<div id="wrapper">
+
+    <nav class="navbar navbar-default navbar-static-top m-b-0">
+        <div class="navbar-header" style="background-color: #9c9c9c;">
+            <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse"
+               data-target=".navbar-collapse">
+
+            </a>
+            <div class="top-left-part">
+                <a class="logo" href="index.html">
+                    <b style='font-size: 20px;width:250px;'>教务管理系统（学生端）</b>
+
+                </a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right pull-right">
+                <li>
+                    <a class="profile-pic" href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       data-hover="dropdown">
+                        <img src="{{avatar_path}}" alt="user-img" width="36" class="img-circle">
+                        <b class="hidden-xs">{{username}}</b>
+                    </a>
+                    <ul class="dropdown-menu ">
+                        <li class="mt5">
+                            <a href="/passwordChange">
+                                <i class="fa fa-key"></i> 修改密码</a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/login" id="loginOut">
+                                <i class="fa fa-sign-out"></i> 退出登录</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+
+    </nav>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flash">
+        {% for message in messages %}
+        <div class="alert alert-success" style="text-align: center">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            <strong>{{ message }}</strong></div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse slimscrollsidebar" style="background-color: #607b8b">
+            <ul class="nav" id="side-menu">
+                <li style="padding: 10px 0 0;">
+                    <a href="/" class="waves-effect">
+                        <i class="fa fa-home fa-fw fa-spin" aria-hidden="true"></i>
+                        <span class="hide-menu">首页</span></a>
+                </li>
+                <li style="padding: 10px 0 0;">
+                    <a href="/course_selection" class="waves-effect">
+                        <i class="fa fa-bookmark fa-fw fa-spin" aria-hidden="true"></i>
+                        <span class="hide-menu">学生选课中心</span></a>
+                </li>
+                <li>
+                    <a href="/seegrade" class="waves-effect">
+                        <i class="fa fa-graduation-cap fa-fw fa-spin" aria-hidden="true"></i>
+                        <span class="hide-menu">考试成绩</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">考试成绩</h4></div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <label style="font-size: 18px"><i class="fa fa-address-card" aria-hidden="true"></i> 个人信息列表</label>
+                <br> <br> <br>
+                <div class="row" style="height:250px;width:1100px; background-color: #ffffff">
+                    <div class="col-md-2 col-xs-4" style="height: 250px; width:250px;">
+                        <div class="white-box" style="height: 250px; width:250px;">
+                            <div class="user-bg" style="background-attachment: fixed;">
+                                <img width="100%" height="100%" alt="user" src="{{avatar_path}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-xs-12">
+                        <div class="white-box" style="width:980px;height: 250px">
+                            <form class="form-horizontal form-material">
+                                <label style="font-size: small">姓名：</label>
+                                <label>{{ name }} </label>
+                                <label style="margin-left: 150px;font-size: small">性别：</label>
+                                <label>{{ sex }} </label>
+                                <label style="margin-left: 150px;font-size: small">学号：</label>
+                                <label>{{ sno }} </label>
+                                <br>
+                                <label style="font-size: small">状态：</label>
+                                <label>{{ state }} </label>
+                                <label style="margin-left: 165px;font-size: small">年级：</label>
+                                <label>{{ grade1 }} </label>
+                                <label style="margin-left: 115px;font-size: small">学院：</label>
+                                <label>机电与信息工程学院 </label>
+                                <label style="margin-left: 115px;font-size: small">专业：</label>
+                                <label>{{ dept }} </label>
+                                <br>
+                                <label style="font-size: small">入学日期：</label>
+                                <label>{{ inschool }} </label>
+                                <label style="margin-left: 110px;font-size: small">毕业日期：</label>
+                                <label>{{ outschool }} </label>
+                                <label style="margin-left: 78px;font-size: small">学制：</label>
+                                <label>4年 </label>
+                                <br>
+                                <label style="font-size: small">已获必修学分：</label>
+                                <label>{{ bixiuc_xuefen }} </label>
+                                <label style="margin-left: 120px;font-size: small">已获限选学分：</label>
+                                <label>{{ xianxuan_xueen }} </label>
+                                <label style="font-size: small; margin-left: 89px;">已获任选学分：</label>
+                                <label>{{ tongxuan_xuefen }} </label>
+                                <br>
+                                <label style="font-size: small">已获得总学分：</label>
+                                <label>{{ zong_xuefen }} </label>
+                                <label style="margin-left:100px;font-size: small">平均学分绩点：</label>
+                                <label>{{ jidian }} </label>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br>
+                <label style="font-size:20px  " class="fa fa-list " aria-hidden="true"> 学生成绩列表</label>
+                <div class="table-responsive">
+                    <table class="table" id="tb">
+                        <thead>
+                        <tr>
+                            <th>课程编号</th>
+                            <th>课程名</th>
+                            <th>课序号</th>
+                            <th>开课学期</th>
+                            <th>课程类别</th>
+                            <th>学分</th>
+                            <th>总学时</th>
+                            <th>成绩</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {%for data in datas%}
+                        <tr>
+                            {%for d in data%}
+                            <td>{{d}}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer text-center" style="background-color: #000000;color: white">
+
+    <b style="position:absolute; margin-left:  -630px; margin-top:0px;font-size: 20px;"><i
+            class="fa fa-link"></i>常用链接</b>
+    <a href="https://www.baidu.com" style=" position:absolute;margin-left: -500px; color: white;font-size:20px;">百度</a>
+    <a href="https://www.github.com"
+       style="position:absolute; margin-left: -440px; color: white;font-size:20px;">Github</a>
+    <a href="https://www.csdn.net" style="position:absolute; margin-left: -360px; color: white;font-size:20px;">CSDN</a>
+    <BR>
+    <br>
+    <b style="position:absolute; margin-left:  -630px; margin-top:0px;font-size: 20px;"><i
+            class="fa fa-link"></i>学校链接</b>
+    <a href="http://pass.sdu.edu.cn/cas/login?service=http://softms.sdu.edu.cn/"
+       style=" position:absolute;margin-left: -500px; color: white;font-size:20px;">校内正版软件</a>
+    <a href="http://58.194.172.34/reader/redr_info.php"
+       style="position:absolute; margin-left: -360px; color: white;font-size:20px;">图书检索系统</a>
+    <a href="https://www.wh.sdu.edu.cn/xxxl.htm"
+       style="position:absolute; margin-left: -220px; color: white;font-size:20px;">校历</a>
+    <BR>
+    <label style="font-size: 23px"><i class="fa fa-users"></i>教务管理系统</label><br>
+    <a href="http://www.superzhaoyang.top" style="color: white">superzhaoyang.top©</a> 版权所有
+</footer>
+</div>
+</div>
+<script src="/static/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+<script src="/static/js/jquery.slimscroll.js"></script>
+<script src="/static/js/waves.js"></script>
+<script src="/static/js/custom.min.js"></script>
+</body>
+</html>
